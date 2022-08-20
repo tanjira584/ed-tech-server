@@ -19,11 +19,15 @@ async function run() {
     try {
         await client.connect();
         const courseCollection = client.db("ed-courses").collection("courses");
+
+        /*------Get All Courses------*/
         app.get("/courses", async (req, res) => {
             const query = {};
             const courses = await courseCollection.find(query).toArray();
             res.send(courses);
         });
+
+        /*------Get Single Course------*/
         app.get("/course/:id", async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
